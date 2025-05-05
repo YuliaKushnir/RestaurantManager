@@ -1,4 +1,15 @@
 package org.restaurantmanager.dto;
 
-public record AuthenticationResponse(String jwt) {
+import lombok.Data;
+import org.restaurantmanager.enums.UserRole;
+
+@Data
+public class AuthenticationResponse {
+
+    private String jwt;
+
+    private UserRole userRole;
+
+    private Long userId;
+
 }
