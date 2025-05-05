@@ -1,5 +1,6 @@
 package org.restaurantmanager.services.auth;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.restaurantmanager.dto.SignupRequest;
 import org.restaurantmanager.dto.UserDto;
@@ -16,6 +17,22 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @PostConstruct
+    public void createAdminAccount(){
+        User adminAccount = userRepository.findByRole(UserRole.ADMIN);
+
+        if(adminAccount == null){
+            User user = new User();
+            user.setName("admin");
+            user.setEmail("admin@test.com");
+            user.setPassword(bCryptPasswordEncoder.encode("admin"));
+            user.setRole(UserRole.ADMIN);
+
+            userRepository.save(user);
+        }
+
+    }
 
     @Override
     public UserDto createUser(SignupRequest signupRequest) {
