@@ -12,7 +12,6 @@ public class RestaurantManagerApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(RestaurantManagerApplication.class, args);
-
     }
 
 }

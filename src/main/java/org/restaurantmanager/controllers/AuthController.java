@@ -9,7 +9,7 @@ import org.restaurantmanager.dto.UserDto;
 import org.restaurantmanager.models.User;
 import org.restaurantmanager.repositories.UserRepository;
 import org.restaurantmanager.services.auth.AuthService;
-import org.restaurantmanager.services.auth.jwt.UserDetailsServiceImpl;
+import org.restaurantmanager.services.jwt.UserService;
 import org.restaurantmanager.util.JwtUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +30,7 @@ public class AuthController {
 
     private final AuthService authService;
     private final AuthenticationManager authenticationManager;
-    private final UserDetailsServiceImpl userDetailsService;
+    private final UserService userService;
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
 
@@ -48,7 +48,6 @@ public class AuthController {
     public AuthenticationResponse createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws IOException {
         try{
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-
         } catch(BadCredentialsException e){
             throw new BadCredentialsException("Invalid email or password");
         } catch(DisabledException disabledException){
@@ -56,15 +55,14 @@ public class AuthController {
             return null;
         }
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
-
-        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
+        final UserDetails userDetails = userService.userDetailsService().loadUserByUsername(authenticationRequest.getEmail());
+        final String jwt = jwtUtil.generateToken(userDetails);
 
         Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
         if(optionalUser.isPresent()){
             authenticationResponse.setJwt(jwt);
-            authenticationResponse.setUserRole(optionalUser.get().getRole());
+            authenticationResponse.setRole(optionalUser.get().getRole());
             authenticationResponse.setUserId(optionalUser.get().getId());
         }
         return authenticationResponse;

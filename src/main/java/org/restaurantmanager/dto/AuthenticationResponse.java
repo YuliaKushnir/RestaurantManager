@@ -8,7 +8,7 @@ public class AuthenticationResponse {
 
     private String jwt;
 
-    private UserRole userRole;
+    private UserRole role;
 
     private Long userId;
 

@@ -7,7 +7,7 @@ import org.restaurantmanager.dto.UserDto;
 import org.restaurantmanager.enums.UserRole;
 import org.restaurantmanager.models.User;
 import org.restaurantmanager.repositories.UserRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,7 +16,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder bCryptPasswordEncoder;
 
     @PostConstruct
     public void createAdminAccount(){
