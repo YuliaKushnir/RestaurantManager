@@ -40,4 +40,13 @@ public class AdminServiceImpl implements AdminService {
                 .map(Category::getCategoryDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<CategoryDto> getAllCategoriesByTitle(String title) {
+        return categoryRepository
+                .findAllByTitleContaining(title)
+                .stream()
+                .map(Category::getCategoryDto)
+                .collect(Collectors.toList());
+    }
 }
