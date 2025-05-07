@@ -2,6 +2,7 @@ package org.restaurantmanager.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.restaurantmanager.dto.CategoryDto;
+import org.restaurantmanager.dto.ProductDto;
 import org.restaurantmanager.services.admin.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,13 +39,30 @@ public class AdminController {
 
     @GetMapping("/categories/{title}")
     public ResponseEntity<List<CategoryDto>> getAllCategoriesByTitle(@PathVariable String title){
-        System.out.println("INSIDE GETALLCATEGORIESBYTITLE, title: " + title);
         List<CategoryDto> categoryDtoList = adminService.getAllCategoriesByTitle(title);
-        System.out.println("categoryDtoList size " + categoryDtoList.size());
         if(categoryDtoList == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(categoryDtoList);
     }
 
+    @PostMapping("/{categoryId}/product")
+    public ResponseEntity<?> postProduct(@PathVariable Long categoryId, @ModelAttribute ProductDto productDto) throws IOException {
+        ProductDto createdProductDto = adminService.postProduct(categoryId, productDto);
+
+        if(createdProductDto == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdProductDto);
+    }
+
+    @GetMapping("/{categoryId}/products")
+    public ResponseEntity<List<ProductDto>> getAllProductsByCategory(@PathVariable Long categoryId){
+        List<ProductDto> productDtoList = adminService.getAllProductsByCategory(categoryId);
+
+        if(productDtoList == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(productDtoList);
+    }
 }
