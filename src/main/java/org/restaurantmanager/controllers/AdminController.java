@@ -65,4 +65,13 @@ public class AdminController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(productDtoList);
     }
+
+    @GetMapping("/{categoryId}/product/{title}")
+    public ResponseEntity<List<ProductDto>> getProductsByCategoryAndTitle(@PathVariable Long categoryId, @PathVariable String title){
+        List<ProductDto> productDtoList = adminService.getProductsByCategoryAndTitle(categoryId, title);
+        if(productDtoList == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(productDtoList);
+    }
 }

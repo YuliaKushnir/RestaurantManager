@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findAllByCategoryId(Long categoryId);
+
+    List<Product> findAllByCategoryIdAndNameContaining(Long categoryId, String title);
 }
