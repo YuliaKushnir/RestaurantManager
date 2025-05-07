@@ -96,5 +96,17 @@ public class AdminServiceImpl implements AdminService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteProduct(Long productId) {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+
+        if(optionalProduct.isPresent()) {
+            productRepository.deleteById(productId);
+        } else {
+            throw new IllegalArgumentException("Product with id " + productId + " not found");
+        }
+
+    }
+
 
 }

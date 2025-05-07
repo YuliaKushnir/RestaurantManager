@@ -74,4 +74,11 @@ public class AdminController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(productDtoList);
     }
+
+    @DeleteMapping("/product/{productId}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long productId){
+        adminService.deleteProduct(productId);
+
+        return ResponseEntity.noContent().build();
+    }
 }
