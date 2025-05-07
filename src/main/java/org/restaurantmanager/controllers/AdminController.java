@@ -38,7 +38,9 @@ public class AdminController {
 
     @GetMapping("/categories/{title}")
     public ResponseEntity<List<CategoryDto>> getAllCategoriesByTitle(@PathVariable String title){
+        System.out.println("INSIDE GETALLCATEGORIESBYTITLE, title: " + title);
         List<CategoryDto> categoryDtoList = adminService.getAllCategoriesByTitle(title);
+        System.out.println("categoryDtoList size " + categoryDtoList.size());
         if(categoryDtoList == null) {
             return ResponseEntity.notFound().build();
         }
