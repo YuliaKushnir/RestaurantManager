@@ -81,4 +81,14 @@ public class AdminController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/product/{productId}")
+    public ResponseEntity<?> updateProduct(@PathVariable Long productId, @ModelAttribute ProductDto productDto) throws IOException {
+        ProductDto updatedProductDto = adminService.updateProduct(productId, productDto);
+
+        if(updatedProductDto == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(updatedProductDto);
+    }
 }
