@@ -2,7 +2,9 @@ package org.restaurantmanager.services.user;
 
 import lombok.RequiredArgsConstructor;
 import org.restaurantmanager.dto.CategoryDto;
+import org.restaurantmanager.dto.ProductDto;
 import org.restaurantmanager.models.Category;
+import org.restaurantmanager.models.Product;
 import org.restaurantmanager.repositories.CategoryRepository;
 import org.restaurantmanager.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,24 @@ public class CustomerServiceImpl implements CustomerService {
                 .findAll()
                 .stream()
                 .map(Category::getCategoryDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CategoryDto> getAllCategoriesByTitle(String title) {
+        return categoryRepository
+                .findAllByTitleContaining(title)
+                .stream()
+                .map(Category::getCategoryDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDto> getAllProductsByCategory(Long categoryId) {
+        return productRepository
+                .findAllByCategoryId(categoryId)
+                .stream()
+                .map(Product::getProductDto)
                 .collect(Collectors.toList());
     }
 
