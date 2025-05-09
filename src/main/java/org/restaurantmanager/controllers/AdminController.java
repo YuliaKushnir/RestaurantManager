@@ -91,4 +91,13 @@ public class AdminController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(updatedProductDto);
     }
+
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<ProductDto> getProductById(@PathVariable Long productId){
+        ProductDto productDto = adminService.getProductById(productId);
+        if(productDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(productDto);
+    }
 }

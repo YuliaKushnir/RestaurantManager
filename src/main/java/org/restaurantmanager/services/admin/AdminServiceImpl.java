@@ -130,5 +130,11 @@ public class AdminServiceImpl implements AdminService {
         return null;
     }
 
+    @Override
+    public ProductDto getProductById(Long productId) {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        return optionalProduct.map(Product::getProductDto).orElse(null);
+    }
+
 
 }
