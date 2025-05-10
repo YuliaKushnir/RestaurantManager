@@ -48,5 +48,14 @@ public class CustomerServiceImpl implements CustomerService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ProductDto> getProductsByCategoryAndTitle(Long categoryId, String title) {
+        return productRepository
+                .findAllByCategoryIdAndNameContaining(categoryId, title)
+                .stream()
+                .map(Product::getProductDto)
+                .collect(Collectors.toList());
+    }
+
 
 }

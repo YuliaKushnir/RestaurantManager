@@ -50,5 +50,14 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(productDtoList);
     }
 
+    @GetMapping("/{categoryId}/product/{title}")
+    public ResponseEntity<List<ProductDto>> getProductsByCategoryAndTitle(@PathVariable Long categoryId, @PathVariable String title){
+        List<ProductDto> productDtoList = customerService.getProductsByCategoryAndTitle(categoryId, title);
+        if(productDtoList == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(productDtoList);
+    }
+
 
 }

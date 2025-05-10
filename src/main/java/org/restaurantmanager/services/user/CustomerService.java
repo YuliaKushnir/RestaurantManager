@@ -13,4 +13,5 @@ public interface CustomerService {
 
     List<ProductDto> getAllProductsByCategory(Long categoryId);
 
+    List<ProductDto> getProductsByCategoryAndTitle(Long categoryId, String title);
 }
