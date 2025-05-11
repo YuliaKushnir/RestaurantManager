@@ -68,5 +68,15 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdReservationDto);
     }
 
+    @GetMapping("/reservations/{customerId}")
+    public ResponseEntity<List<ReservationDto>> getReservationsByUser(@PathVariable Long customerId){
+        List<ReservationDto> reservationDtos = customerService.getReservationsByUser(customerId);
+
+        if(reservationDtos == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(reservationDtos);
+    }
+
 
 }

@@ -90,5 +90,11 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
+    @Override
+    public List<ReservationDto> getReservationsByUser(Long customerId) {
+        return reservationRepository.findAllByUserId(customerId)
+                .stream().map(Reservation::getReservationDto).collect(Collectors.toList());
+    }
+
 
 }

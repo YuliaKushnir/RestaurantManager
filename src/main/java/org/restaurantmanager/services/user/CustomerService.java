@@ -17,4 +17,6 @@ public interface CustomerService {
     List<ProductDto> getProductsByCategoryAndTitle(Long categoryId, String title);
 
     ReservationDto postReservation(ReservationDto reservationDto);
+
+    List<ReservationDto> getReservationsByUser(Long customerId);
 }
