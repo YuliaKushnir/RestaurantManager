@@ -3,6 +3,7 @@ package org.restaurantmanager.controllers;
 import lombok.RequiredArgsConstructor;
 import org.restaurantmanager.dto.CategoryDto;
 import org.restaurantmanager.dto.ProductDto;
+import org.restaurantmanager.dto.ReservationDto;
 import org.restaurantmanager.services.admin.AdminService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -99,5 +100,15 @@ public class AdminController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(productDto);
+    }
+
+    @GetMapping("/reservations")
+    public ResponseEntity<List<ReservationDto>> getReservations(){
+        List<ReservationDto> reservationDtos = adminService.getReservations();
+
+        if(reservationDtos == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(reservationDtos);
     }
 }

@@ -18,4 +18,6 @@ public class ReservationDto {
     private ReservationStatus reservationStatus;
 
     private Long userId;
+
+    private String customerName;
 }

@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.util.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import org.restaurantmanager.dto.CategoryDto;
 import org.restaurantmanager.dto.ProductDto;
+import org.restaurantmanager.dto.ReservationDto;
 import org.restaurantmanager.models.Category;
 import org.restaurantmanager.models.Product;
+import org.restaurantmanager.models.Reservation;
 import org.restaurantmanager.repositories.CategoryRepository;
 import org.restaurantmanager.repositories.ProductRepository;
+import org.restaurantmanager.repositories.ReservationRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,8 @@ public class AdminServiceImpl implements AdminService {
     private final CategoryRepository categoryRepository;
 
     private final ProductRepository productRepository;
+
+    private final ReservationRepository reservationRepository;
 
     @Override
     public CategoryDto postCategory(CategoryDto categoryDto) throws IOException {
@@ -135,6 +140,15 @@ public class AdminServiceImpl implements AdminService {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         return optionalProduct.map(Product::getProductDto).orElse(null);
     }
+
+    @Override
+    public List<ReservationDto> getReservations() {
+        return reservationRepository.findAll()
+                .stream().map(Reservation::getReservationDto).collect(Collectors.toList());
+
+    }
+
+
 
 
 }

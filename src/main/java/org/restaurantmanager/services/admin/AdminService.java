@@ -2,6 +2,7 @@ package org.restaurantmanager.services.admin;
 
 import org.restaurantmanager.dto.CategoryDto;
 import org.restaurantmanager.dto.ProductDto;
+import org.restaurantmanager.dto.ReservationDto;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,4 +25,6 @@ public interface AdminService {
     ProductDto updateProduct(Long productId, ProductDto productDto) throws IOException;
 
     ProductDto getProductById(Long productId);
+
+    List<ReservationDto> getReservations();
 }

@@ -40,6 +40,7 @@ public class Reservation {
         reservationDto.setDateTime(dateTime);
         reservationDto.setReservationStatus(reservationStatus);
         reservationDto.setUserId(user.getId());
+        reservationDto.setCustomerName(user.getName());
         return reservationDto;
     }
 
