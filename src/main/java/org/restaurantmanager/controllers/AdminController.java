@@ -111,4 +111,15 @@ public class AdminController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(reservationDtos);
     }
+
+    @GetMapping("/reservation/{reservationId}/{status}")
+    public ResponseEntity<ReservationDto> changeReservationStatus(@PathVariable Long reservationId, @PathVariable String status){
+        ReservationDto updatedReservationDto = adminService.changeReservationStatus(reservationId, status);
+
+        if(updatedReservationDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(updatedReservationDto);
+    }
+
 }

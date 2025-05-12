@@ -2,6 +2,6 @@ package org.restaurantmanager.enums;
 
 public enum ReservationStatus {
     PENDING,
-    APPROVES,
+    APPROVED,
     DISAPPROVED,
 }

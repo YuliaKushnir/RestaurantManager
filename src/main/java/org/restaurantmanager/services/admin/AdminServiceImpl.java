@@ -1,10 +1,10 @@
 package org.restaurantmanager.services.admin;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import org.restaurantmanager.dto.CategoryDto;
 import org.restaurantmanager.dto.ProductDto;
 import org.restaurantmanager.dto.ReservationDto;
+import org.restaurantmanager.enums.ReservationStatus;
 import org.restaurantmanager.models.Category;
 import org.restaurantmanager.models.Product;
 import org.restaurantmanager.models.Reservation;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -148,7 +149,25 @@ public class AdminServiceImpl implements AdminService {
 
     }
 
+    @Override
+    public ReservationDto changeReservationStatus(Long reservationId, String status) {
+        Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
+        if(optionalReservation.isPresent()) {
+            Reservation reservation = optionalReservation.get();
 
+            if(Objects.equals(status, "Approve")){
+                reservation.setReservationStatus(ReservationStatus.APPROVED);
+            } else {
+                reservation.setReservationStatus(ReservationStatus.DISAPPROVED);
+            }
+
+            Reservation updatedReservation = reservationRepository.save(reservation);
+            ReservationDto updatedReservationDto = new ReservationDto();
+            updatedReservationDto.setId(updatedReservation.getId());
+            return updatedReservationDto;
+        }
+        return null;
+    }
 
 
 }

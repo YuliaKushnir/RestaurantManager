@@ -27,4 +27,6 @@ public interface AdminService {
     ProductDto getProductById(Long productId);
 
     List<ReservationDto> getReservations();
+
+    ReservationDto changeReservationStatus(Long reservationId, String status);
 }
