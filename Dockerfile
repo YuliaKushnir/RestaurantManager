@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN chmod +x ./mvnw
 RUN ./mvnw clean package -DskipTests
-CMD ["java", "-jar", "target/restaurant-management.jar"]
+CMD ["java", "-jar", "target/RestaurantManager-0.0.1-SNAPSHOT.jar"]
 
 
 #FROM maven:3.8.5-openjdk-17 AS build
