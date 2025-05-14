@@ -15,7 +15,8 @@ import java.util.Map;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
-    private final String clientAppUrl ="http://localhost:4200/*";
+//    private final String clientAppUrl ="http://localhost:4200/*";
+    private final String clientAppUrl ="https://restaurantmanagerclient.onrender.com/*";
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
